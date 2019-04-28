@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>训练项目</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("sport:projectconfig:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("sport:projectconfig:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("sport:projectconfig:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+														                    <div class="form-group">
+                        <div class="col-sm-2 control-label">训练目标</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.trainGoal" placeholder="训练目标"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">项目ID</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.projectId" placeholder="项目ID"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">训练项目</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.projectName" placeholder="训练项目"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">分值范围最低值</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.minScore" placeholder="分值范围最低值"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">分值范围最高值</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.maxScore" placeholder="分值范围最高值"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">综合评分级别</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.scoreLevel" placeholder="综合评分级别"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">年龄</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.age" placeholder="年龄"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">性别</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.gender" placeholder="性别"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">备注</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.remark" placeholder="备注"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">创建时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.createTime" placeholder="创建时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">修改时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="projectConfig.updateTime" placeholder="修改时间"/>
+                        </div>
+                    </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sport/projectconfig.js?_${.now?long}"></script>
+</body>
+</html>
