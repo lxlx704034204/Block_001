@@ -104,11 +104,11 @@
             <div class="form-group">
                 <div class="col-sm-3 control-label">身高</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="height" placeholder="身高"/>
+                    <input type="text" class="form-control" name="height" id="height" placeholder="身高"/>
                 </div>
                 <div class="col-sm-3 control-label">体重</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="weight" placeholder="体重"/>
+                    <input type="text" class="form-control" name="weight" id="weight" placeholder="体重"/>
                 </div>
             </div>
             <div id="form-project-group" >
@@ -116,7 +116,7 @@
             <div class="form-group">
                 <div class="col-sm-3 control-label">测试员</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="teacherName" placeholder="测试员"/>
+                    <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="测试员"/>
                 </div>
                 <br/>
             </div>
@@ -124,7 +124,7 @@
             <div class="form-group">
                 <div class="col-sm-3 control-label">检测时间</div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control"   name="checkTime" id="checkTime" placeholder="检测时间"/>
+                    <input type="text" class="form-control" v-on:focus='layDateFun'  name="checkTime" id="checkTime" placeholder="检测时间"/>
                 </div>
             </div>
 
@@ -132,19 +132,13 @@
             <div class="form-group">
                 <div class="col-sm-2 control-label"></div>
                 <input type="button" class="btn btn-primary" id="btnSaveGrade" data-loading-text="保存中..." @click="saveAllProjectGrade" value="确定"/>
-                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="layerClose" value="返回"/>
             </div>
         </form>
     </div>
 </div>
 
 <script src="${request.contextPath}/statics/js/modules/sport/student.js?_${.now?long}"></script>
-<script type="javascript">
-    //常规用法
-    laydate.render({
-        elem: '#checkTime'
-    });
 
-</script>
 </body>
 </html>

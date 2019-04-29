@@ -10,6 +10,7 @@ import io.renren.modules.sport.util.AgeUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -42,13 +43,14 @@ public class GradeServiceImpl implements GradeService {
     private TrainGoalService trainGoalService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Result saveGrade(GradeDTO grade) {
         //todo
         List<ProjectConfig> projectConfigList = projectConfigService.list();
         List<ScoreSuggestion> suggestionList = suggestionService.list();
         Student stu = studentService.getById(grade.getStudentId());
         Integer age = AgeUtils.getAgeByBirthday(stu.getBirthday());
-        LocalDateTime checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.BASIC_ISO_DATE);
+        LocalDateTime checkTime = LocalDateTime.parse(grade.getCheckTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         BmiGrade bmiGrade = BmiGrade.builder()
                 .checkTime(checkTime)
@@ -94,6 +96,9 @@ public class GradeServiceImpl implements GradeService {
             Map<String, BigDecimal> gradeMap = new HashMap<>();
             projectList.forEach(p -> {
                 ProjectGrade pg = gradeMapGroupById.get(p.getId());
+                if(Objects.isNull(pg)){
+                    return;
+                }
                 gradeMap.put(p.getProjectCode(),pg.getProjectGrade());
             });
             StudentGrade studentGrade = StudentGrade.builder()

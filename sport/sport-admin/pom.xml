@@ -96,8 +96,8 @@
 			</exclusions>
 		</dependency>
         <dependency>
-            <groupId>io.renren</groupId>
-            <artifactId>renren-dynamic-datasource</artifactId>
+            <groupId>io.sport</groupId>
+            <artifactId>sport-datasource</artifactId>
             <version>4.0.0</version>
             <scope>test</scope>
         </dependency>

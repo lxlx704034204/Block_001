@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -40,16 +42,27 @@ public class GradeController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("sport:studentgrade:save")
-    public Result save(@RequestBody GradeDTO grade){
+    public Result save(HttpServletRequest request, @RequestBody GradeDTO grade){
+        System.out.println("--------------");
         return gradeService.saveGrade(grade);
     }
 
     /**
-     * 保存
+     *
      */
     @RequestMapping("/info")
     @RequiresPermissions("sport:studentgrade:info")
     public Result detail(Integer studentId){
         return gradeService.queryDetail(studentId);
     }
+
+    @RequestMapping("/page")
+    @RequiresPermissions("sport:studentgrade:info")
+    public ModelAndView page(Integer studentId){
+        ModelAndView mv = new ModelAndView("modules/sport/exportStuGrade");
+        mv.addObject("studentId",studentId);
+        return mv;
+    }
+
+
 }
