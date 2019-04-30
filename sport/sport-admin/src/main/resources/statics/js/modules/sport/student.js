@@ -18,7 +18,7 @@ $(function () {
             { label: '操作', name: 'state', index: 'state', width: 120, edittype:"button",
                 formatter: function(cellVal,grid,rows,id){
                     let addGradeBtn = "<button class='btn btn-primary ' onclick='vm.addGrade("+rows.id+")' >添加数据</button>" ;
-                    let queryGrade =  "<a class='btn btn-warning ' href='/sport/grade/page?studentId="+rows.id+">查看</a>" ;
+                    let queryGrade =  "<a class='btn btn-warning' href='/sport/grade/page?studentId="+rows.id+"'>查看</a>" ;
                     return addGradeBtn + queryGrade;
                 }
             }

@@ -5,124 +5,83 @@
 		<#include "/header.html">
 </head>
 <body>
-<div id="rrapp" v-cloak>
+<div>
 
 
-    <div v-show="showList" class="panel panel-default">
-        <div class="panel-heading">{{title}}</div>
-            <div class="form-group">
-                        <div class="col-sm-2 control-label">学号</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.stuNumber" placeholder="学号"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">年龄段</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.ageRange" placeholder="年龄段"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">测试员</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.teacherName" placeholder="测试员"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">身高/cm</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.height" placeholder="身高/cm"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">体重/kg</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.weight" placeholder="体重/kg"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">速度 m/s</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.speed" placeholder="速度 m/s"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">下肢力量</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.lowStrength" placeholder="下肢力量"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">上肢力量</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.upperStrength" placeholder="上肢力量"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">柔韧性</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.flexibility" placeholder="柔韧性"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">心肺能力</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.cardiopulmonary" placeholder="心肺能力"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">核心力量</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.coreStrength" placeholder="核心力量"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">TGMD-3测试</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.tgmd3Check" placeholder="TGMD-3测试"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">检测时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.checkDate" placeholder="检测时间"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">综合评分</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.score" placeholder="综合评分"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">评测建议</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.suggestion" placeholder="评测建议"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">备注</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.remark" placeholder="备注"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">创建时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.createTime" placeholder="创建时间"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">修改时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="studentGrade.updateTime" placeholder="修改时间"/>
-                        </div>
-                    </div>
-							            <div class="form-group">
-                <div class="col-sm-2 control-label"></div>
-                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
-                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
-            </div>
+    <div  class="panel panel-default">
+        <div class="panel-heading">梦锐体能测评报告</div>
+        <table>
+            <tr>
+                <th>门店</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>年龄段</th>
+                <th>出生年月</th>
+                <th>测试日期</th>
+                <th>训练课时</th>
+                <th>出勤率</th>
+                <th>测试人</th>
+            </tr>
+            <tr>
+                <th>门店</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>年龄段</th>
+                <th>出生年月</th>
+                <th>测试日期</th>
+                <th>训练课时</th>
+                <th>出勤率</th>
+                <th>测试人</th>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>该年龄段训练目标</th>
+                <th>身体形态评测</th>
+
+            </tr>
+            <tr>
+                <td>身高</td>
+                <td>身高</td>
+                <td>BMI</td>
+
+            </tr>
+            <tr>
+                <td>体重</td>
+                <td>体重</td>
+                <td>BMI</td>
+            </tr>
+            <tr>
+                <td>身体质量指数评价</td>
+                <td>体重</td>
+                <td>BMI</td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>速度</th>
+                <th>上肢力量</th>
+                <th>下肢力量</th>
+                <th>灵敏</th>
+                <th>柔韧</th>
+                <th>心肺耐力</th>
+                <th>大肌肉群发展测试</th>
+                <th>身体形态评测</th>
+                <th>该年龄段训练目标</th>
+                <th>身体形态评测</th>
+            </tr>
+            <tr>
+                <td>身高</td>
+                <td>身高</td>
+                <td>BMI</td>
+
+            </tr>
+
+        </table>
     </div>
 </div>
 
