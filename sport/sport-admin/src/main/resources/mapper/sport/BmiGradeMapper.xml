@@ -13,6 +13,7 @@
         <result property="height" column="height"/>
         <result property="weight" column="weight"/>
         <result property="checkTime" column="check_time"/>
+        <result property="bmiGrade" column="bmi_grade"/>
         <result property="score" column="score"/>
         <result property="suggestion" column="suggestion"/>
         <result property="remark" column="remark"/>
@@ -20,7 +21,7 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
     <sql id="Base_column_list">
-         `id`, `student_id`,`age`,`age_range`,`teacher_name`,`height`,`weight`,`check_time`,`score`,
+         `id`, `student_id`,`age`,`age_range`,`teacher_name`,`height`,`weight`,`check_time`,`bmi_grade`,`score`,
          `suggestion`,`remark`,`create_time`,`update_time`
     </sql>
     <select id="selectByStudentId" resultMap="bmiGradeMap">

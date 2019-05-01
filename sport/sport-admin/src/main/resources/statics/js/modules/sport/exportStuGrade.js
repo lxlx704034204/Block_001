@@ -1,140 +1,146 @@
-var vm = new Vue({
-	el:'#main',
-	data:{
-		student:{},
-		age:null,
-		gender:'未知',
-		trainGoal:{},
-		bmiGradeList:{},
-		lastProGradeList:{},
-		lastStuGrade:{},
-		average:{},
-		scoreDesc:null
-	},
-	mounted: function(){
-		var studentId = url("studentId");
-		$.get(baseURL + "sport/grade/info?studentId="+studentId, function(r){
-			debugger;
-			vm.student = r.student;
-			vm.age = r.age;
-			vm.gender = r.student.gender == 1? '男':'女';
-			vm.bmiGradeList = r.bmiGradeList;
-			vm.lastBmiGrade = r.lastBmiGrade;
-			vm.scoreDesc = r.scoreDesc;
-			vm.lastStuGrade = r.lastStuGrade;
-			vm.lastProGradeList = r.lastProGradeList;
-			vm.trainGoal = r.trainGoal;
-		});
-	},
-	methods: {
-		radarChartFun:function () {
-			var radarChart = echarts.init(document.getElementById('radarId'));
 
-			var radarOption = {
-				title : { },
-				tooltip : {
-					trigger: 'axis'
-				},
-				calculable : true,
-				polar : [
-					{
-						name: { show: true,textStyle:{fontSize:16,color:"#32cd32"}},
-						indicator : [
-							{text : '解决问题', max  : 100},
-							{text : '学习能力', max  : 100},
-							{text : '综合', max  : 100},
-							{text : '技术能力', max  : 100},
-							{text : '业务能力', max  : 100},
-							{text : '思维模式', max  : 100}
-						],center : ['50%','50%'],
-						radius : 50 //半径，可放大放小雷达图
-					}
-				],
-				series : [
-					{
-						name:'',
-						type: 'radar',//图表类型 radar为雷达图
-						itemStyle: {
-							normal: {
-								lineStyle: {
-									color :"#87cefa",
-									width : 2
-								},
-								areaStyle: {
-									color:"#87cefa",
-									type: 'default'
-								}
-							}
-						},
-						symbolSize :6,
-						data : [{
-							value:[100,80,80,80,80,80]
-						}]
-					}
-				]
-			}
-			radarChart.setOption(radarOption);
-		},
+function radarChartFun (radarCharData) {
+	let indicatorType=[];
+	let dataVal = [];
 
-		barChartFun: function () {
-				// 基于准备好的dom，初始化echarts实例
-				var barChart = echarts.init(document.getElementById('barChart'));
-
-				// 指定图表的配置项和数据
-				var barOption = {
-					title: {
-						text: 'ECharts 入门示例'
-					},
-					tooltip: {},
-					legend: {
-						data:['销量']
-					},
-					xAxis: {
-						data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-					},
-					yAxis: {},
-					series: [{
-						name: '销量',
-						type: 'bar',
-						data: [5, 20, 36, 10, 10, 20]
-					}]
-				};
-
-				// 使用刚指定的配置项和数据显示图表。
-				barChart.setOption(barOption);
-		},
-
-		bmiChartFun: function () {
-				// 基于准备好的dom，初始化echarts实例
-				var bmiChart = echarts.init(document.getElementById('bmiChart'));
-
-				// 指定图表的配置项和数据
-				var bmiOption = {
-					title: {
-						text: 'ECharts 入门示例'
-					},
-					tooltip: {},
-					legend: {
-						data:['销量']
-					},
-					xAxis: {
-						data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-					},
-					yAxis: {},
-					series: [{
-						name: '销量',
-						type: 'bar',
-						splitNumber:3,
-						splitArea:{
-							show:true
-						},
-						data: [5, 20, 36, 10, 10, 20]
-					}]
-				};
-
-				// 使用刚指定的配置项和数据显示图表。
-				bmiChart.setOption(bmiOption);
-		}
-
+	for(let index in radarChartData){
+		var indType={};
+		indType['text']=radarChartData[index].projectType;
+		indType['max']=5;
+		indicatorType.push(indType);
+		dataVal.push(radarChartData[index].score);
 	}
-});
+	var radarChart = echarts.init(document.getElementById('radarId'));
+	var radarOption = {
+		title : {
+		},
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['满分', '测试']
+		},
+		calculable : true,
+		polar : [
+			{
+				name: { show: true,textStyle:{fontSize:16,color:"#32cd32"}},
+				indicator : indicatorType,
+				center : ['50%','50%'],
+				radius : 50 //半径，可放大放小雷达图
+			}
+		],
+		series : [
+			{
+				name:'数据对比图',
+				type: 'radar',//图表类型 radar为雷达图
+				itemStyle: {
+					normal: {
+						lineStyle: {
+							color :"#87cefa",
+							width : 2
+						},
+						areaStyle: {
+							color:"#87cefa",
+							type: 'default'
+						}
+					}
+				},
+				symbolSize :6,
+				data : [{
+					value:dataVal
+				}]
+			}
+		]
+	}
+	radarChart.setOption(radarOption);
+}
+
+function barChartFun(dataX,fullDataY,checkDataY) {
+	// 基于准备好的dom，初始化echarts实例
+	var barChart = echarts.init(document.getElementById('barChart'));
+
+	// 指定图表的配置项和数据
+	var barOption = {
+		title: {
+			text: 'TMD3测试'
+		},
+		tooltip : {
+			trigger : 'axis',
+			showDelay : 0, // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			}
+		},
+		legend: {
+			data:['测试数据', '满分数据']
+		},
+		calculable : true,
+		xAxis : [{
+			type : 'category',
+			data : dataX,  //横坐标日期
+			axisLabel:{
+				textStyle:{
+					color:"#222"
+				}
+			}
+		}],
+		yAxis : [{
+			type : 'value',
+			// boundaryGap: [0, 0.1]
+		}],
+		series : [
+			{
+				name:'测试数据',
+				type:'bar',
+				stack: 'sum',
+				barCategoryGap: '50%',
+				/*itemStyle : { normal: {label : {show: true, position: 'insideTop',textStyle:{color:'#000'}}}},*/
+				data:checkDataY
+			},
+			{
+				name:'满分数据',
+				type:'bar',
+				stack: 'sum',
+				barWidth : 30,//柱图宽度
+				barCategoryGap: '50%',
+				/*itemStyle : { normal: {label : {show: true, position: 'insideTop',textStyle:{color:'#000'}}}},*/
+				data:fullDataY
+			}
+		]
+	};
+
+	// 使用刚指定的配置项和数据显示图表。
+	barChart.setOption(barOption);
+}
+
+function bmiChartFun(bmiDataY) {
+		// 基于准备好的dom，初始化echarts实例
+		var bmiChart = echarts.init(document.getElementById('bmiChart'));
+
+		// 指定图表的配置项和数据
+		var bmiOption = {
+			title: {
+				text: 'BMI指标'
+			},
+			tooltip: {},
+			legend: {
+				data:['BMI']
+			},
+			xAxis: {
+				data: ["",""]
+			},
+			yAxis: {},
+			series: [{
+				name: 'bmi',
+				type: 'bar',
+				splitNumber:3,
+				splitArea:{
+					show:true
+				},
+				data: bmiDataY
+			}]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		bmiChart.setOption(bmiOption);
+}

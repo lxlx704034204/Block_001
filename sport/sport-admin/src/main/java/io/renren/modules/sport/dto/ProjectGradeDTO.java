@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProjectGradeDTO extends ProjectGrade {
     private String projectCode;
+    private String projectType;
     private String projectName;
 }

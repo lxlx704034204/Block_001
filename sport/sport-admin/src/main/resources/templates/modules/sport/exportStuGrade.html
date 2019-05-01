@@ -32,16 +32,16 @@
                 <th>测试人</th>
             </tr>
             <tr>
-                <th>{{student.schoolName}}</th>
-                <th>{{student.realname}}</th>
-                <th>{{gender}}</th>
-                <th>{{age}}</th>
-                <th>{{lastStuGrade.ageRange}}</th>
-                <th>{{student.birthday}}</th>
-                <th>{{lastStuGrade.checkTime}}</th>
-                <th>{{lastStuGrade.trainHours}} 小时</th>
-                <th>{{lastStuGrade.attendance}} %</th>
-                <th>{{lastStuGrade.teacherName}}</th>
+                <th>${student.schoolName}</th>
+                <th>${student.realname}</th>
+                <th>${student.gender}</th>
+                <th>${age}</th>
+                <th>${lastStuGrade.ageRange}</th>
+                <th>${student.birthday}</th>
+                <th>${lastStuGrade.checkTime}</th>
+                <th>${lastStuGrade.trainHours} 小时</th>
+                <th>${lastStuGrade.attendance} %</th>
+                <th>${lastStuGrade.teacherName}</th>
             </tr>
 
             <tr>
@@ -51,7 +51,7 @@
             <tr>
                 <td colspan="5">
                     <span style="width: 50%;">
-                      {{trainGoal.trainGoal}}
+                      ${trainGoal.trainGoal}
                     </span>
 
                 </td>
@@ -59,15 +59,15 @@
                     <table class="table table-border">
                         <tr>
                             <td colspan="2">身高</td>
-                            <td colspan="2">{{lastBmiGrade.height}} cm</td>
+                            <td colspan="2">${lastBmiGrade.height} cm</td>
                             <td rowspan="2" colspan="2">
                                 BMI：<br/>
-                                <span style="color: red;">{{lastBmiGrade.score}}</span>
+                                <span style="color: red;">${lastBmiGrade.bmiGrade}</span>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">体重</td>
-                            <td colspan="2">{{lastBmiGrade.weight}}KG</td>
+                            <td colspan="2">${lastBmiGrade.weight}KG</td>
                         </tr>
                         <tr>
                             <td colspan="2">身体质量指数评价</td>
@@ -90,68 +90,66 @@
                     <table class="table table-border">
                         <tr>
                             <td>测试项目</td>
-                            <td>速度 10米折返跑（秒）</td>
-                            <td>上肢力量 网球掷远（米）
-                            </td>
-                            <td>下肢爆发力 立定跳远（厘米）
-                            </td>
-                            <td>灵敏 走平衡木（秒）
-                            </td>
-                            <td>柔韧 坐位体前屈（厘米）
-                            </td>
-                            <td>心肺耐力</td>
-                            <td>TGMD-3 运动技术
-                            </td>
+
+                            <#list lastProGradeList as proGrade>
+                                <td>${proGrade.projectType} <br/>  ${proGrade.projectName}</td>
+                            </#list>
                         </tr>
                         <tr>
                             <td>成绩</td>
-                            <td>6.8</td>
-                            <td>4.2</td>
-                            <td>98</td>
-                            <td>7.3</td>
-                            <td>10</td>
-                            <td>心肺耐力</td>
-                            <td>95</td>
+                            <#list lastProGradeList as proGrade>
+                                <td>${proGrade.projectGrade}</td>
+                            </#list>
                         </tr>
                         <tr>
                             <td>上次成绩</td>
-                            <td>6.8</td>
-                            <td>4.2</td>
-                            <td>98</td>
-                            <td>7.3</td>
-                            <td>10</td>
-                            <td>心肺耐力</td>
-                            <td>95</td>
+
+                                <#list lastProGradeList as proGrade>
+                                <td>
+                                    <#list prevProjectGradeList as prevGrade>
+                                        <#if proGrade.projectId== prevGrade.projectId>
+                                            ${prevGrade.projectGrade}
+                                        </#if>
+                                    </#list>
+                                </td>
+                                </#list>
+
                         </tr>
                         <tr>
                             <td>增长值</td>
-                            <td>6.8</td>
-                            <td>4.2</td>
-                            <td>98</td>
-                            <td>7.3</td>
-                            <td>10</td>
-                            <td>心肺耐力</td>
-                            <td>95</td>
+                            <#list lastProGradeList as proGrade>
+                                <td>
+                                    <#list prevProjectGradeList as prevGrade>
+                                    <#if proGrade.projectId== prevGrade.projectId>
+                                        ${proGrade.projectGrade - prevGrade.projectGrade!0}
+                                    </#if>
+                                    </#list>
+                                </td>
+                            </#list>
                         </tr>
                         <tr>
                             <td>满分成绩</td>
-                            <td>6.8</td>
-                            <td>4.2</td>
-                            <td>98</td>
-                            <td>7.3</td>
-                            <td>10</td>
-                            <td>心肺耐力</td>
-                            <td>95</td>
+                            <#list lastProGradeList as proGrade>
+                            <td>
+                                <#list projectFullScore as fullScore>
+                                    <#if proGrade.projectId == fullScore.projectId>
+                                        ${fullScore.minScore}
+                                    </#if>
+                                </#list>
+                            </td>
+                            </#list>
                         </tr>
                         <tr>
                             <td>评分</td>
-                            <td>6.8</td>
-                            <td>4.2</td>
-                            <td>98</td>
-                            <td>7.3</td>
-                            <td>10</td>
-                            <td>心肺耐力</td>
-                            <td>95</td>
+                            <#list lastProGradeList as proGrade>
+                            <td>
+                                <#list prevProjectGradeList as prevGrade>
+                                <#if proGrade.projectId== prevGrade.projectId>
+                                    ${(proGrade.projectGrade + prevGrade.projectGrade!0)/2}
+                                </#if>
+                            </#list>
+                            </td>
+                        </#list>
                         </tr>
                     </table>
                 </td>
@@ -177,17 +175,16 @@
             <tr>
                 <td colspan="10">
                     <table class="table table-border" >
-                        <div v-for="proGrade in lastProGradeList">
+                        <#list lastProGradeList as proGrade>
                             <tr>
-                                <td>{{proGrade.projectType}} <br/>  {{proGrade.projectName}}</td>
-                                <td>{{proGrade.suggestion}}</td>
+                                <td>${proGrade.projectType} <br/>  ${proGrade.projectName}</td>
+                                <td>${proGrade.suggestion}</td>
                             </tr>
-                        </div>
-
+                        </#list>
 
                         <tr>
                             <td>综合测评</td>
-                            <td>{{lastStuGrade.suggestion}}</td>
+                            <td>${lastStuGrade.suggestion}</td>
                         </tr>
                   </td>
             </tr>
@@ -201,9 +198,9 @@
                             <td>
                                 本次体能测试结果评价为
                             </td>
-                            <td>通过</td>
+                            <td>${passDesc}</td>
                             <td>你的测评成绩为</td>
-                            <td>良好</td>
+                            <td>${scoreDesc}</td>
                         </tr>
                         <tr>
                             <td colspan="5">
@@ -223,8 +220,60 @@
     </div>
 
 </div>
-
-
 <script src="${request.contextPath}/statics/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
+<script>
+    var radarChartData=[];
+    var barCheckDataY =[];
+    var barDataX =[];
+    var lastScore=0;
+    var lastCheckTime;
+    <#list lastProGradeList as item>
+        radarChartData.push({projectType:"${item.projectType}",score:"${item.score}"});
+        lastCheckTime = "${item.checkTime}";
+        if('tgmd3_check' == "${item.projectType}"){
+            lastScore = "${item.score}";
+        }
+    </#list>
+    barDataX.push(lastCheckTime);
+    barCheckDataY.push(lastScore);
+    radarChartFun(radarChartData);
+
+    var prevScore = 0;
+    <#list prevProjectGradeList as item>
+        barDataX.push("${item.checkTime}");
+        if('tgmd3_check' == "${item.projectType}"){
+            prevScore = "${item.score}";
+        }
+    </#list>
+    barCheckDataY.push(prevScore);
+    var barFullDataY = [];
+    fullScore = "100";
+    <#list projectFullScore as item>
+        if('tgmd3_check' == "${item.projectType}"){
+            fullScore = "${item.minScore}";
+        }
+    </#list>
+    barFullDataY.push(fullScore);
+    barFullDataY.push(fullScore);
+    barChartFun(barDataX,barFullDataY,barCheckDataY)
+
+    var bmiDataY=[];
+    var bmiFullDataY=[];
+    var checkDataY ="${lastBmiGrade.bmiGrade}";
+    <#list bmiConfigs as item>
+        var bmi = "${item.normWeightRange}".split("-");
+        bmiFullDataY.push((bmi[0]+bmi[1])/2);
+    </#list>
+    for(let fd in bmiFullDataY){
+        bmiDataY.push(bmiFullDataY[fd])
+    }
+    bmiDataY.push(checkDataY);
+    for(let fd in bmiFullDataY){
+        bmiDataY.push(bmiFullDataY[fd])
+    }
+    bmiChartFun(bmiDataY);
+</script>
+
+
 </body>
 </html>

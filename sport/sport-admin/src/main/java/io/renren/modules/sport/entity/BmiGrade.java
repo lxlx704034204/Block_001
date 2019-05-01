@@ -54,6 +54,7 @@ public class BmiGrade implements Serializable {
 	 * 体重/kg
 	 */
 	private BigDecimal weight;
+	private BigDecimal bmiGrade;
 	/**
 	 * 检测时间
 	 */

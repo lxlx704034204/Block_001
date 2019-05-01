@@ -6,7 +6,7 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="io.renren.modules.sport.entity.ProjectConfig" id="projectConfigMap">
         <result property="id" column="id"/>
-        <result property="trainGoal" column="train_goal"/>
+        <result property="projectType" column="project_type"/>
         <result property="projectId" column="project_id"/>
         <result property="projectName" column="project_name"/>
         <result property="minScore" column="min_score"/>
@@ -20,5 +20,11 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-
+    <select id="getByProjectIds" resultMap="projectConfigMap">
+        select * from sport_project_config
+        where project_id in
+        <foreach collection="projectIds" item="projectId" open="(" close=")" separator=",">
+            #{projectId}
+        </foreach>
+    </select>
 </mapper>

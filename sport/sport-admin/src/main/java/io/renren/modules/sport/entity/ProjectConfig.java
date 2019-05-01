@@ -30,7 +30,7 @@ public class ProjectConfig implements Serializable {
 	/**
 	 * 训练目标
 	 */
-	private String trainGoal;
+	private String projectType;
 	/**
 	 * 项目ID
 	 */

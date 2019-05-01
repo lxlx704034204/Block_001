@@ -1,6 +1,8 @@
 package io.renren.modules.sport.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -24,6 +26,16 @@ public class ProjectConfigServiceImpl extends ServiceImpl<ProjectConfigMapper, P
         );
 
         return new PageResult(page);
+    }
+
+    @Override
+    public List<ProjectConfig> getByIds(List<Integer> projectIds) {
+        return this.baseMapper.selectBatchIds(projectIds);
+    }
+
+    @Override
+    public List<ProjectConfig> getByProjectIds(List<Integer> projectIds) {
+        return this.baseMapper.getByProjectIds(projectIds);
     }
 
 }

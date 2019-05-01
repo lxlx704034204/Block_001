@@ -41,6 +41,8 @@ public class GradeServiceImpl implements GradeService {
     private BmiGradeService bmiGradeService;
     @Autowired
     private TrainGoalService trainGoalService;
+    @Autowired
+    private BmiConfigService bmiConfigService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -111,7 +113,7 @@ public class GradeServiceImpl implements GradeService {
                     .ageRange(bmiGrade.getAgeRange())
                     .teacherName(grade.getTeacherName())
                     .build();
-            //todo
+            //todo 新增训练时长、出勤率 bmi成绩
             try {
                 BeanUtils.populate(studentGrade,gradeMap);
             } catch (IllegalAccessException e) {
@@ -143,6 +145,9 @@ public class GradeServiceImpl implements GradeService {
         //BMI测试值
         List<BmiGrade> bmiGradeList = bmiGradeService.getByStudentId(studentId);
         BmiGrade lastBmiGrade = bmiGradeList.stream().max(Comparator.comparing(BmiGrade::getId)).get();
+        //BMI config
+        List<BmiConfig> bmiConfigList = bmiConfigService.list();
+        List<BmiConfig> bmiConfigs = bmiConfigList.stream().filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age).collect(Collectors.toList());
 
         //最近两次身体素质测评数据
         List<StudentGrade> stuGradeList = studentGradeService.getLastTwoGrade(studentId);
@@ -154,6 +159,17 @@ public class GradeServiceImpl implements GradeService {
         List<Integer> gradeIds = Lists.newArrayList();
         gradeIds.add(lastStuGrade.getId());
         List<ProjectGradeDTO> lastProGradeList = projectGradeService.getInGradeIds(gradeIds);
+
+        //满分配置信息
+        List<Integer> projectIds = lastProGradeList.stream().map(ProjectGradeDTO::getProjectId).collect(Collectors.toList());
+        List<ProjectConfig> projectList = projectConfigService.getByProjectIds(projectIds);
+        List<ProjectConfig> proConfigList = projectList.stream().filter(tg -> tg.getMinAge() <=age && tg.getMaxAge()>=age).collect(Collectors.toList());
+
+
+        //上次项目成绩信息
+        gradeIds.clear();
+        gradeIds.add(prevStuGrade.getId());
+        List<ProjectGradeDTO> prevProGradeList = projectGradeService.getInGradeIds(gradeIds);
 
         //计算最近两次的平均分
         Map<Integer, Double> averageMap = lastProGradeList.stream().collect(Collectors.groupingBy(ProjectGradeDTO::getStuGradeId,
@@ -170,6 +186,10 @@ public class GradeServiceImpl implements GradeService {
         Double score = 0.0D;
         if(averageKey.isPresent()){
             score = averageMap.get(averageKey.get());
+        }
+        String passDesc = "通过";
+        if(score < 3){
+            passDesc = "不通过";
         }
         String scoreDesc = "";
         if(score <= 2){
@@ -191,9 +211,13 @@ public class GradeServiceImpl implements GradeService {
                 .put("lastStuGrade",lastStuGrade)
                 .put("prevStuGrade",prevStuGrade)
                 .put("bmiGradeList",bmiGradeList)
+                .put("bmiConfigs",bmiConfigs)
                 .put("lastBmiGrade",lastBmiGrade)
+                .put("projectFullScore",proConfigList)
                 .put("lastProGradeList",lastProGradeList)
+                .put("prevProjectGradeList",prevProGradeList)
                 .put("average",averageMap.get(averageKey))
+                .put("passDesc",passDesc)
                 .put("scoreDesc",scoreDesc);
     }
 }

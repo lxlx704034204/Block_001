@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageResult;
 import io.renren.modules.sport.entity.ProjectConfig;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,9 @@ import java.util.Map;
 public interface ProjectConfigService extends IService<ProjectConfig> {
 
     PageResult queryPage(Map<String, Object> params);
+
+    List<ProjectConfig> getByIds(List<Integer> projectIds);
+
+    List<ProjectConfig> getByProjectIds(List<Integer> projectIds);
 }
 
