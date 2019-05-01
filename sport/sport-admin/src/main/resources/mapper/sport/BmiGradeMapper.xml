@@ -19,6 +19,17 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <sql id="Base_column_list">
+         `id`, `student_id`,`age`,`age_range`,`teacher_name`,`height`,`weight`,`check_time`,`score`,
+         `suggestion`,`remark`,`create_time`,`update_time`
+    </sql>
+    <select id="selectByStudentId" resultMap="bmiGradeMap">
+        select <include refid="Base_column_list"/>
+         from sport_bmi_grade
+        where student_id=#{studentId}
+        order by id desc
+        limit 4
+    </select>
 
 
 </mapper>

@@ -19,5 +19,7 @@ public interface StudentGradeService extends IService<StudentGrade> {
     PageResult queryPage(Map<String, Object> params);
 
     List<StudentGrade> getLastTwoGrade(Integer studentId);
+
+    StudentGrade getLastGrade(Integer studentId);
 }
 

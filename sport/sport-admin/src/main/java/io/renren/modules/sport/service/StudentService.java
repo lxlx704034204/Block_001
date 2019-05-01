@@ -2,6 +2,7 @@ package io.renren.modules.sport.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageResult;
+import io.renren.modules.sport.dto.StudentDTO;
 import io.renren.modules.sport.entity.Student;
 
 import java.util.Map;
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface StudentService extends IService<Student> {
 
     PageResult queryPage(Map<String, Object> params);
+
+    StudentDTO getStudentWithSchoolNameById(Integer studentId);
 }
 

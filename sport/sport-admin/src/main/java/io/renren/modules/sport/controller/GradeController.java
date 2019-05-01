@@ -1,25 +1,16 @@
 package io.renren.modules.sport.controller;
 
-import io.renren.common.utils.PageResult;
 import io.renren.common.utils.Result;
-import io.renren.common.validator.ValidatorUtils;
-import io.renren.modules.sport.dto.GradeDTO;
-import io.renren.modules.sport.entity.StudentGrade;
+import io.renren.modules.sport.dto.GradeParam;
 import io.renren.modules.sport.service.GradeService;
-import io.renren.modules.sport.service.ProjectGradeService;
-import io.renren.modules.sport.service.StudentGradeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Map;
 
 
 /**
@@ -42,7 +33,7 @@ public class GradeController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("sport:studentgrade:save")
-    public Result save(HttpServletRequest request, @RequestBody GradeDTO grade){
+    public Result save(HttpServletRequest request, @RequestBody GradeParam grade){
         System.out.println("--------------");
         return gradeService.saveGrade(grade);
     }
@@ -60,7 +51,9 @@ public class GradeController {
     @RequiresPermissions("sport:studentgrade:info")
     public ModelAndView page(Integer studentId){
         ModelAndView mv = new ModelAndView("modules/sport/exportStuGrade");
+        Result result = gradeService.queryDetail(studentId);
         mv.addObject("studentId",studentId);
+        mv.addAllObjects(result);
         return mv;
     }
 

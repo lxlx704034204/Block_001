@@ -6,7 +6,7 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="io.renren.modules.sport.entity.Project" id="projectMap">
         <result property="id" column="id"/>
-        <result property="trainGoal" column="train_goal"/>
+        <result property="projectType" column="project_type"/>
         <result property="projectCode" column="project_code"/>
         <result property="projectName" column="project_name"/>
         <result property="remark" column="remark"/>
@@ -17,7 +17,7 @@
 
     </resultMap>
     <sql id="Base_column_list">
-        `id`,`train_goal`,`project_name`,`project_code`,``min_age`,`max_age`,`remark`,`create_time`,`update_time`
+        `id`,`project_type`,`project_name`,`project_code`,``min_age`,`max_age`,`remark`,`create_time`,`update_time`
     </sql>
    <!-- <select id="getProjectByAge" resultMap="projectMap">
         SELECT

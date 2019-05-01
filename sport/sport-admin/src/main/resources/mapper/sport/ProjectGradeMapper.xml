@@ -20,12 +20,20 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-    <select id="getInGradeIds" resultMap="projectGradeMap">
+
+    <resultMap id="projectGradeExtendMap" extends="projectGradeMap" type="io.renren.modules.sport.dto.ProjectGradeDTO">
+        <result property="projectCode" column="project_code"/>
+        <result property="projectName" column="project_name"/>
+    </resultMap>
+    <select id="getInGradeIds" resultMap="projectGradeExtendMap">
         SELECT
-        *
+            pg.*,
+            p.project_code,
+            p.project_name
         FROM
-        sport_project_grade
-        WHERE stu_grade_id in
+            sport_project_grade pg left join sport_project p
+          on pg.project_id = p.id
+        WHERE pg.stu_grade_id in
         <foreach collection="gradeIds" item="gradeId" open="(" close=")" separator=",">
             #{gradeId}
         </foreach>

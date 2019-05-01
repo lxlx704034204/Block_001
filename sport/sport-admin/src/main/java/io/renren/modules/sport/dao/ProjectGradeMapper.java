@@ -1,5 +1,6 @@
 package io.renren.modules.sport.dao;
 
+import io.renren.modules.sport.dto.ProjectGradeDTO;
 import io.renren.modules.sport.entity.ProjectGrade;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,5 +20,5 @@ import java.util.List;
 @Mapper
 public interface ProjectGradeMapper extends BaseMapper<ProjectGrade> {
 
-    List<ProjectGrade> getInGradeIds(@Param("gradeIds")Collection<Integer> gradeIds);
+    List<ProjectGradeDTO> getInGradeIds(@Param("gradeIds")Collection<Integer> gradeIds);
 }

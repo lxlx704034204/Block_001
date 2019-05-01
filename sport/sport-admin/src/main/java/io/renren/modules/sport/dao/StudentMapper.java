@@ -1,5 +1,6 @@
 package io.renren.modules.sport.dao;
 
+import io.renren.modules.sport.dto.StudentDTO;
 import io.renren.modules.sport.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,5 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface StudentMapper extends BaseMapper<Student> {
-	
+
+    StudentDTO getStudentWithSchoolNameById(Integer studentId);
 }

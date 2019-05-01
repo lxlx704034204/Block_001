@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageResult;
 import io.renren.modules.sport.entity.TrainGoal;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface TrainGoalService extends IService<TrainGoal> {
 
     PageResult queryPage(Map<String, Object> params);
+
+    List<TrainGoal> queryAll();
 }
 

@@ -17,7 +17,21 @@
         <result property="registerTime" column="register_time"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="address" column="address"/>
+        <result property="schoolId" column="school_id"/>
     </resultMap>
+
+    <resultMap id="studentWithSchoolNameMap" extends="studentMap" type="io.renren.modules.sport.dto.StudentDTO">
+        <result property="schoolName" column="school_name"/>
+    </resultMap>
+
+    <select id="getStudentWithSchoolNameById" resultMap="studentWithSchoolNameMap">
+        select s.*,sc.school_name from sport_student s left join sport_school sc
+        on s.school_id = sc.id
+        where s.id = #{studentId}
+    </select>
 
 
 </mapper>

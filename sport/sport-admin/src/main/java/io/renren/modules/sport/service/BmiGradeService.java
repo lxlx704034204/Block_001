@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageResult;
 import io.renren.modules.sport.entity.BmiGrade;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +18,6 @@ public interface BmiGradeService extends IService<BmiGrade> {
 
     PageResult queryPage(Map<String, Object> params);
 
-    BmiGrade getByStudentId(Integer studentId);
+    List<BmiGrade> getByStudentId(Integer studentId);
 }
 

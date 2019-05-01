@@ -27,9 +27,9 @@ public class Project implements Serializable {
 	@TableId
 	private Integer id;
 	/**
-	 * 测试目标
+	 * 项目类型
 	 */
-	private String trainGoal;
+	private String projectType;
 	/**
 	 * 项目名称
 	 */

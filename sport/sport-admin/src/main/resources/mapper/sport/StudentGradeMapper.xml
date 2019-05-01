@@ -25,7 +25,10 @@
         <result property="remark" column="remark"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="trainHours" column="train_hours"/>
+        <result property="attendance" column="attendance"/>
     </resultMap>
+
     <select id="getByLastTwoStudentId" resultMap="studentGradeMap">
         SELECT
           *
@@ -34,6 +37,15 @@
         WHERE student_id = #{studentId}
         order by id desc
         limit 2
+    </select>
+    <select id="getByLastStudentId" resultMap="studentGradeMap">
+        SELECT
+          *
+        FROM
+          sport_student_grade
+        WHERE student_id = #{studentId}
+        order by id desc
+        limit 1
     </select>
 
 

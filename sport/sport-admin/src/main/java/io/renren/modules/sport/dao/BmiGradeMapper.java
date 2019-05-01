@@ -4,6 +4,8 @@ import io.renren.modules.sport.entity.BmiGrade;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * BMI成绩表
  * 
@@ -13,5 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface BmiGradeMapper extends BaseMapper<BmiGrade> {
-	
+
+    List<BmiGrade> selectByStudentId(Integer studentId);
 }

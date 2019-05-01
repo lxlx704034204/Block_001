@@ -4,6 +4,8 @@ import io.renren.common.utils.PageResult;
 import io.renren.modules.sport.dao.BmiGradeMapper;
 import io.renren.modules.sport.entity.BmiGrade;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -27,10 +29,10 @@ public class BmiGradeServiceImpl extends ServiceImpl<BmiGradeMapper, BmiGrade> i
     }
 
     @Override
-    public BmiGrade getByStudentId(Integer studentId) {
+    public List<BmiGrade> getByStudentId(Integer studentId) {
         BmiGrade bmiGrade = BmiGrade.builder().studentId(studentId).build();
         QueryWrapper queryWrapper = new QueryWrapper(bmiGrade);
-        return this.baseMapper.selectOne(queryWrapper);
+        return this.baseMapper.selectByStudentId(studentId);
     }
 
 }

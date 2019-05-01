@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProGradeDTO  implements Serializable {
+public class ProGradeParam implements Serializable {
     private Integer projectId;
 
     private BigDecimal proGrade;

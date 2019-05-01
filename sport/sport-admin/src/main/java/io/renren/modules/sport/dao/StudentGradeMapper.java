@@ -17,4 +17,6 @@ import java.util.List;
 public interface StudentGradeMapper extends BaseMapper<StudentGrade> {
 
     List<StudentGrade> getByLastTwoStudentId(Integer studentId);
+
+    StudentGrade getByLastStudentId(Integer studentId);
 }

@@ -2,6 +2,7 @@ package io.renren.modules.sport.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageResult;
+import io.renren.modules.sport.dto.ProjectGradeDTO;
 import io.renren.modules.sport.entity.ProjectGrade;
 
 import java.util.List;
@@ -18,6 +19,6 @@ public interface ProjectGradeService extends IService<ProjectGrade> {
 
     PageResult queryPage(Map<String, Object> params);
 
-    List<ProjectGrade> getInGradeIds(List<Integer> gradeIds);
+    List<ProjectGradeDTO> getInGradeIds(List<Integer> gradeIds);
 }
 

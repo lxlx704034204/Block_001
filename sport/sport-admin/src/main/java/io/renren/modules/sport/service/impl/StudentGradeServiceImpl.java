@@ -33,4 +33,9 @@ public class StudentGradeServiceImpl extends ServiceImpl<StudentGradeMapper, Stu
         return this.baseMapper.getByLastTwoStudentId(studentId);
     }
 
+    @Override
+    public StudentGrade getLastGrade(Integer studentId) {
+        return this.baseMapper.getByLastStudentId(studentId);
+    }
+
 }

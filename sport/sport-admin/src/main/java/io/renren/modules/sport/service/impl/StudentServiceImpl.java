@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.PageResult;
 import io.renren.common.utils.Query;
 import io.renren.modules.sport.dao.StudentMapper;
+import io.renren.modules.sport.dto.StudentDTO;
 import io.renren.modules.sport.entity.Student;
 import io.renren.modules.sport.service.StudentService;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         );
 
         return new PageResult(page);
+    }
+
+    @Override
+    public StudentDTO getStudentWithSchoolNameById(Integer studentId) {
+        return this.baseMapper.getStudentWithSchoolNameById(studentId);
     }
 
 }

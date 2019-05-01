@@ -10,6 +10,7 @@ import io.renren.modules.sport.entity.TrainGoal;
 import io.renren.modules.sport.service.TrainGoalService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,6 +25,15 @@ public class TrainGoalServiceImpl extends ServiceImpl<TrainGoalMapper, TrainGoal
         );
 
         return new PageResult(page);
+    }
+
+    @Override
+    public List<TrainGoal> queryAll() {
+        List<TrainGoal> list = this.list();
+        list.forEach(e ->{
+            e.setAgeRange(e.getMinAge()+"-"+e.getMaxAge());
+        });
+        return list;
     }
 
 }

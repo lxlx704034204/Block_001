@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>学员成绩表</title>
-		<#include "/header.html">
+    <#include "/header.html">
+    <title>学生成绩报表导出</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
 </head>
 <body>
-<div>
 
-
-    <div  class="panel panel-default">
-        <div class="panel-heading">梦锐体能测评报告</div>
-        <table>
+<div class="container" id="main">
+    <div class="row">
+        <table class="table table-bordered">
             <tr>
-                <th>门店</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>年龄</th>
-                <th>年龄段</th>
-                <th>出生年月</th>
-                <th>测试日期</th>
-                <th>训练课时</th>
-                <th>出勤率</th>
-                <th>测试人</th>
+                <td colspan="10"> <h2 class="text-center" style="align-content: center; background-color: yellow;">梦锐体能测评报告</h2></td>
             </tr>
             <tr>
                 <th>门店</th>
@@ -35,55 +31,199 @@
                 <th>出勤率</th>
                 <th>测试人</th>
             </tr>
-        </table>
-
-        <table>
             <tr>
-                <th>该年龄段训练目标</th>
-                <th>身体形态评测</th>
-
-            </tr>
-            <tr>
-                <td>身高</td>
-                <td>身高</td>
-                <td>BMI</td>
-
-            </tr>
-            <tr>
-                <td>体重</td>
-                <td>体重</td>
-                <td>BMI</td>
-            </tr>
-            <tr>
-                <td>身体质量指数评价</td>
-                <td>体重</td>
-                <td>BMI</td>
-            </tr>
-        </table>
-
-        <table>
-            <tr>
-                <th>速度</th>
-                <th>上肢力量</th>
-                <th>下肢力量</th>
-                <th>灵敏</th>
-                <th>柔韧</th>
-                <th>心肺耐力</th>
-                <th>大肌肉群发展测试</th>
-                <th>身体形态评测</th>
-                <th>该年龄段训练目标</th>
-                <th>身体形态评测</th>
-            </tr>
-            <tr>
-                <td>身高</td>
-                <td>身高</td>
-                <td>BMI</td>
-
+                <th>{{student.schoolName}}</th>
+                <th>{{student.realname}}</th>
+                <th>{{gender}}</th>
+                <th>{{age}}</th>
+                <th>{{lastStuGrade.ageRange}}</th>
+                <th>{{student.birthday}}</th>
+                <th>{{lastStuGrade.checkTime}}</th>
+                <th>{{lastStuGrade.trainHours}} 小时</th>
+                <th>{{lastStuGrade.attendance}} %</th>
+                <th>{{lastStuGrade.teacherName}}</th>
             </tr>
 
+            <tr>
+                <td colspan="5">该年龄段训练目标	 </td>
+                <td colspan="5">身体形态测评</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <span style="width: 50%;">
+                      {{trainGoal.trainGoal}}
+                    </span>
+
+                </td>
+                <td colspan="5">
+                    <table class="table table-border">
+                        <tr>
+                            <td colspan="2">身高</td>
+                            <td colspan="2">{{lastBmiGrade.height}} cm</td>
+                            <td rowspan="2" colspan="2">
+                                BMI：<br/>
+                                <span style="color: red;">{{lastBmiGrade.score}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">体重</td>
+                            <td colspan="2">{{lastBmiGrade.weight}}KG</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">身体质量指数评价</td>
+                            <td colspan="6">
+                                <div id="bmiChart" style="width: 300px;height:200px;">
+                                    柱状图
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="10">身体素质测评数据 </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+
+                    <table class="table table-border">
+                        <tr>
+                            <td>测试项目</td>
+                            <td>速度 10米折返跑（秒）</td>
+                            <td>上肢力量 网球掷远（米）
+                            </td>
+                            <td>下肢爆发力 立定跳远（厘米）
+                            </td>
+                            <td>灵敏 走平衡木（秒）
+                            </td>
+                            <td>柔韧 坐位体前屈（厘米）
+                            </td>
+                            <td>心肺耐力</td>
+                            <td>TGMD-3 运动技术
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>成绩</td>
+                            <td>6.8</td>
+                            <td>4.2</td>
+                            <td>98</td>
+                            <td>7.3</td>
+                            <td>10</td>
+                            <td>心肺耐力</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>上次成绩</td>
+                            <td>6.8</td>
+                            <td>4.2</td>
+                            <td>98</td>
+                            <td>7.3</td>
+                            <td>10</td>
+                            <td>心肺耐力</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>增长值</td>
+                            <td>6.8</td>
+                            <td>4.2</td>
+                            <td>98</td>
+                            <td>7.3</td>
+                            <td>10</td>
+                            <td>心肺耐力</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>满分成绩</td>
+                            <td>6.8</td>
+                            <td>4.2</td>
+                            <td>98</td>
+                            <td>7.3</td>
+                            <td>10</td>
+                            <td>心肺耐力</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>评分</td>
+                            <td>6.8</td>
+                            <td>4.2</td>
+                            <td>98</td>
+                            <td>7.3</td>
+                            <td>10</td>
+                            <td>心肺耐力</td>
+                            <td>95</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5"> 数据雷达对比图 </td>
+                <td colspan="5"> TGMD-3 大肌肉群发展测试</td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <div class="four-body" id="radarId" style="width:223px; height:210px;text-align: center;">
+                        雷达图
+                    </div>
+
+                </td>
+                <td colspan="5">
+                    <div class="four-right-body" id="barChart" style="width:223px; height:210px;text-align: center;">
+                        柱状图
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <table class="table table-border" >
+                        <div v-for="proGrade in lastProGradeList">
+                            <tr>
+                                <td>{{proGrade.projectType}} <br/>  {{proGrade.projectName}}</td>
+                                <td>{{proGrade.suggestion}}</td>
+                            </tr>
+                        </div>
+
+
+                        <tr>
+                            <td>综合测评</td>
+                            <td>{{lastStuGrade.suggestion}}</td>
+                        </tr>
+                  </td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <table class="table table-border">
+                        <tr>
+                            <td colspan="5">测试评价结果</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                本次体能测试结果评价为
+                            </td>
+                            <td>通过</td>
+                            <td>你的测评成绩为</td>
+                            <td>良好</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                既然选择了踏上这条道路，那么，任何东西都不应该妨碍我沿着这条路走下去！请保持良好的出勤！
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                用运动，改变未来
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
         </table>
     </div>
+
 </div>
+
 
 <script src="${request.contextPath}/statics/js/modules/sport/exportStuGrade.js?_${.now?long}"></script>
 </body>

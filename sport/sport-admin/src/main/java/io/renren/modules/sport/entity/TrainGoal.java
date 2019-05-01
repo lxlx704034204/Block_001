@@ -35,7 +35,7 @@ public class TrainGoal implements Serializable {
 	/**
 	 * 年龄段
 	 */
-	private String ageRange;
+	private transient String ageRange;
 	/**
 	 * 性别
 	 */
