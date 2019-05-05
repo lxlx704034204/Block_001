@@ -4,13 +4,17 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '项目类型', name: 'projectType', index: 'project_type', width: 80 },
-			{ label: '项目ID', name: 'projectId', index: 'project_id', width: 80 },
+            { label: '项目ID', name: 'projectId', index: 'project_id', width: 80 },
+            { label: '项目类型', name: 'projectType', index: 'project_type', width: 80 },
 			{ label: '训练项目', name: 'projectName', index: 'project_name', width: 150  },
 			{ label: '分值范围最低值', name: 'minScore', index: 'min_score', width: 80 }, 			
 			{ label: '分值范围最高值', name: 'maxScore', index: 'max_score', width: 80 }, 			
 			{ label: '综合评分级别', name: 'scoreLevel', index: 'score_level', width: 80 }, 			
-			{ label: '年龄', name: 'age', index: 'age', width: 80 }, 			
+			{ label: '年龄段', name: 'age', index: 'age', width: 80 ,
+                formatter: function (cellvalue, options, rowObject) {
+                    return rowObject.minAge+"-"+rowObject.maxAge;
+                }
+            },
 			{ label: '性别', name: 'gender', index: 'gender', width: 80 ,
                 formatter: function (cellvalue, options, rowObject) {
                     if(cellvalue == 1) return '男'; else return '女';
