@@ -62,7 +62,7 @@ public class ProjectGradeController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:projectgrade:save")
     public Result save(@RequestBody ProjectGrade projectGrade){
-        projectGrade.setCreateTime(LocalDateTime.now())
+        projectGrade.setCreateTime(LocalDateTime.now());
         projectGradeService.save(projectGrade);
 
         return Result.ok();
