@@ -282,6 +282,7 @@ var vm = new Vue({
                     elem: '#checkTime', //指定元素
                     type: 'datetime',
                     done: function(value, date, endDate){
+                        alert(value)
                         vm.checkTime = value;
                     }
                 });
@@ -289,10 +290,11 @@ var vm = new Vue({
         },
         layDateRegisterTime: function (event) {
             layui.use('laydate', function(){
-                var laydate = layui.laydate.render({
+                layui.laydate.render({
                     elem: '#registerTime', //指定元素
                     type: 'datetime',
                     done: function(value, date, endDate){
+                        alert(value)
                         vm.student.registerTime = value;
                     }
                 });
@@ -300,10 +302,11 @@ var vm = new Vue({
         },
         layDateBirthday: function (event) {
             layui.use('laydate', function(){
-                var laydate = layui.laydate.render({
+                layui.laydate.render({
                     elem: '#birthday', //指定元素
                     type: 'datetime',
                     done: function(value, date, endDate){
+                        alert(value)
                         vm.student.birthday = value;
                     }
                 });
@@ -313,7 +316,7 @@ var vm = new Vue({
 });
 
 
-layui.use('laydate', function(){
+/*layui.use('laydate', function(){
     var laydate = layui.laydate.render({
         elem: '#checkTime', //指定元素
         type: 'datetime',
@@ -335,5 +338,5 @@ layui.use('laydate', function(){
         type: 'datetime',
         event: 'focus'
     });
-});
+});*/
 
