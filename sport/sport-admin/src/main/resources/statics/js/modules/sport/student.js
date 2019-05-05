@@ -282,14 +282,36 @@ var vm = new Vue({
                     elem: '#checkTime', //指定元素
                     type: 'datetime',
                     done: function(value, date, endDate){
-                        alert(value); //得到日期生成的值，如：2017-08-18
                         vm.checkTime = value;
+                    }
+                });
+            });
+        },
+        layDateRegisterTime: function (event) {
+            layui.use('laydate', function(){
+                var laydate = layui.laydate.render({
+                    elem: '#registerTime', //指定元素
+                    type: 'datetime',
+                    done: function(value, date, endDate){
+                        vm.student.registerTime = value;
+                    }
+                });
+            });
+        },
+        layDateBirthday: function (event) {
+            layui.use('laydate', function(){
+                var laydate = layui.laydate.render({
+                    elem: '#birthday', //指定元素
+                    type: 'datetime',
+                    done: function(value, date, endDate){
+                        vm.student.birthday = value;
                     }
                 });
             });
         }
 	}
 });
+
 
 layui.use('laydate', function(){
     var laydate = layui.laydate.render({
@@ -301,4 +323,17 @@ layui.use('laydate', function(){
         //     vm.checkTime = value;
         // }
     });
+
+    var laydateRegTime = layui.laydate.render({
+        elem: '#registerTime', //指定元素
+        type: 'datetime',
+        event: 'focus'
+    });
+
+    var laydateBirthDay = layui.laydate.render({
+        elem: '#birthday', //指定元素
+        type: 'datetime',
+        event: 'focus'
+    });
 });
+
