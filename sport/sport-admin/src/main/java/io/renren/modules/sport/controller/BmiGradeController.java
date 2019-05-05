@@ -1,10 +1,12 @@
 package io.renren.modules.sport.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,6 +63,7 @@ public class BmiGradeController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:bmigrade:save")
     public Result save(@RequestBody BmiGrade bmiGrade){
+        bmiGrade.setCreateTime(LocalDateTime.now());
         bmiGradeService.save(bmiGrade);
 
         return Result.ok();

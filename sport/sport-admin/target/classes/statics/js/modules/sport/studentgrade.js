@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '学号', name: 'stuNumber', index: 'stu_number', width: 80 }, 			
+			{ label: '学号', name: 'studentId', index: 'student_id', width: 80 },
 			{ label: '年龄段', name: 'ageRange', index: 'age_range', width: 80 }, 			
 			{ label: '测试员', name: 'teacherName', index: 'teacher_name', width: 80 }, 			
 			{ label: '身高/cm', name: 'height', index: 'height', width: 80 }, 			

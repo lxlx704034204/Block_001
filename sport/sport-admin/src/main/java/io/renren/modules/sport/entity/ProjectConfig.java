@@ -3,7 +3,11 @@ package io.renren.modules.sport.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.io.Serializable;
@@ -19,6 +23,10 @@ import java.util.Date;
  */
 @Data
 @TableName("sport_project_config")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain=true)
 public class ProjectConfig implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -1,5 +1,6 @@
 package io.renren.modules.sport.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class TrainGoalController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:traingoal:save")
     public Result save(@RequestBody TrainGoal trainGoal){
+        trainGoal.setCreateTime(LocalDateTime.now());
         trainGoalService.save(trainGoal);
 
         return Result.ok();

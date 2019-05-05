@@ -6,9 +6,13 @@ $(function () {
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
 			{ label: '项目ID', name: 'trainProjectId', index: 'train_project_id', width: 80 }, 			
 			{ label: '评分范围', name: 'minScore', index: 'min_score', width: 80 }, 			
-			{ label: '', name: 'maxScore', index: 'max_score', width: 80 }, 			
+			{ label: '评分最大值', name: 'maxScore', index: 'max_score', width: 80 },
 			{ label: '建议', name: 'suggestion', index: 'suggestion', width: 80 }, 			
-			{ label: '性别1：男 2：女', name: 'gender', index: 'gender', width: 80 }, 			
+			{ label: '性别', name: 'gender', index: 'gender', width: 80 ,
+                formatter: function (cellvalue, options, rowObject) {
+                    if(cellvalue == 1) return '男'; else return '女';
+                }
+            },
 			{ label: '备注', name: 'remark', index: 'remark', width: 80 }, 			
 			{ label: '创建时间', name: 'createTime', index: 'create_time', width: 80 }, 			
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 }			

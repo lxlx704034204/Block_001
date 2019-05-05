@@ -26,9 +26,9 @@
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
 														                    <div class="form-group">
-                        <div class="col-sm-2 control-label">测试目标</div>
+                        <div class="col-sm-2 control-label">项目类型</div>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="project.trainGoal" placeholder="测试目标"/>
+                            <input type="text" class="form-control" v-model="project.projectType" placeholder="项目类型"/>
                         </div>
                     </div>
 											                    <div class="form-group">
@@ -43,19 +43,7 @@
                             <input type="text" class="form-control" v-model="project.remark" placeholder="备注"/>
                         </div>
                     </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">创建时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="project.createTime" placeholder="创建时间"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">修改时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="project.updateTime" placeholder="修改时间"/>
-                        </div>
-                    </div>
-							            <div class="form-group">
+                    <div class="form-group">
                 <div class="col-sm-2 control-label"></div>
                 <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
                 &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>

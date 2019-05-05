@@ -1,9 +1,12 @@
 package io.renren.modules.sport.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.sport.entity.Project;
+import io.renren.modules.sport.service.ProjectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +34,8 @@ import io.renren.common.utils.Result;
 public class ProjectConfigController {
     @Autowired
     private ProjectConfigService projectConfigService;
+    @Autowired
+    private ProjectService projectService;
 
     /**
      * 列表
@@ -61,6 +66,11 @@ public class ProjectConfigController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:projectconfig:save")
     public Result save(@RequestBody ProjectConfig projectConfig){
+
+        Project project = projectService.getById(projectConfig.getProjectId());
+        projectConfig.setProjectName(project.getProjectName())
+                .setProjectType(project.getProjectType())
+                .setCreateTime(LocalDateTime.now());
         projectConfigService.save(projectConfig);
 
         return Result.ok();

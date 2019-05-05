@@ -71,6 +71,7 @@ public class ProjectController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:project:save")
     public Result save(@RequestBody Project project){
+        project.setCreateTime(LocalDateTime.now());
         projectService.save(project);
 
         return Result.ok();

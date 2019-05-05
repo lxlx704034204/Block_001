@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '上级小区', name: 'parentId', index: 'parent_id', width: 80 }, 			
+			//{ label: '上级校区', name: 'parentId', index: 'parent_id', width: 80 },
 			{ label: '学校名称', name: 'schoolName', index: 'school_name', width: 80 }, 			
 			{ label: '学校编码', name: 'schoolCode', index: 'school_code', width: 80 }, 			
 			{ label: '学校所在省', name: 'province', index: 'province', width: 80 }, 			

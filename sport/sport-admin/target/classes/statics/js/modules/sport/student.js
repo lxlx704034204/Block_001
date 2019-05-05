@@ -7,7 +7,11 @@ $(function () {
 			{ label: '学号', name: 'stuNumber', index: 'stu_number', width: 80 }, 			
 			{ label: '联系方式', name: 'mobile', index: 'mobile', width: 80 }, 			
 			{ label: '学生姓名', name: 'realname', index: 'realname', width: 80 }, 			
-			{ label: '性别', name: 'gender', index: 'gender', width: 80 },
+			{ label: '性别', name: 'gender', index: 'gender', width: 80 ,
+                formatter: function (cellvalue, options, rowObject) {
+                    if(cellvalue == 1) return '男'; else return '女';
+                }
+            },
 			{ label: '出生日期', name: 'birthday', index: 'birthday', width: 80 }, 			
 			{ label: '家长姓名', name: 'familyName', index: 'family_name', width: 80 }, 			
 			{ label: '家长联系方式', name: 'familyMobile', index: 'family_mobile', width: 80 }, 			
@@ -68,8 +72,12 @@ var vm = new Vue({
 		student: {},   //学生信息
         studentId: null,
         layerIndex: null,
-        checkTime: null
+        checkTime: null,
+        schoolList: {}
 	},
+    mounted: function(){
+	    this.getSchoolList();
+    },
 	methods: {
 		query: function () {
 			vm.reload();
@@ -153,6 +161,27 @@ var vm = new Vue({
                 page:page
             }).trigger("reloadGrid");
 		},
+        getSchoolList: function(){
+            //动态生成select内容
+            $.ajax({
+                type:"post",
+                async:false,
+                url:baseURL + 'sport/school/list',
+                data:{
+                    page:1,
+                    limit: 1000
+                },
+                success:function(data){
+                    var jsonobj = data.page.list;
+                    if (jsonobj != null) {
+                        var length=jsonobj.length;
+                        $.each(jsonobj, function(i){
+                            $("<option value='" + jsonobj[i].id + "'>" + jsonobj[i].schoolName+ "</option>").appendTo($("#schoolId"));
+                        });
+                    }
+                }
+            });
+        },
         layerClose: function(event){
 		   layer.close(vm.layerIndex);
         },
@@ -189,7 +218,7 @@ var vm = new Vue({
             vm.layerIndex = layer.open({
                 type: 1,
                 skin: 'layui-layer-rim', //加上边框
-                area: ['70%', '450px'], //宽高
+                area: ['80%', '450px'], //宽高
                 closeBtn: 1, //不显示关闭按钮
                 anim: 2,
                 shadeClose: true, //开启遮罩关闭

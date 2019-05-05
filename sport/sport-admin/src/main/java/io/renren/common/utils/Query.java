@@ -14,6 +14,7 @@ import io.renren.common.xss.SQLFilter;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 查询参数
@@ -59,12 +60,13 @@ public class Query<T> {
         }
 
         //默认排序
-        if(isAsc) {
-            page.setAsc(defaultOrderField);
-        }else {
-            page.setDesc(defaultOrderField);
+        if(Objects.nonNull(defaultOrderField) ) {
+            if (isAsc) {
+                page.setAsc(defaultOrderField);
+            } else {
+                page.setDesc(defaultOrderField);
+            }
         }
-
         return page;
     }
 }

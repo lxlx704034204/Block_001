@@ -1,5 +1,6 @@
 package io.renren.modules.sport.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class ScoreSuggestionController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:scoresuggestion:save")
     public Result save(@RequestBody ScoreSuggestion scoreSuggestion){
+        scoreSuggestion.setCreateTime(LocalDateTime.now());
         scoreSuggestionService.save(scoreSuggestion);
 
         return Result.ok();

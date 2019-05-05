@@ -1,5 +1,6 @@
 package io.renren.modules.sport.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class BmiConfigController {
     @RequestMapping("/save")
     @RequiresPermissions("sport:bmiconfig:save")
     public Result save(@RequestBody BmiConfig bmiConfig){
+        bmiConfig.setCreateTime(LocalDateTime.now());
         bmiConfigService.save(bmiConfig);
 
         return Result.ok();

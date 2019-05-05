@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '测试目标', name: 'trainGoal', index: 'train_goal', width: 80 }, 			
+			{ label: '项目类型', name: 'projectType', index: 'project_type', width: 80 },
 			{ label: '项目名称', name: 'projectName', index: 'project_name', width: 80 }, 			
 			{ label: '备注', name: 'remark', index: 'remark', width: 80 }, 			
 			{ label: '创建时间', name: 'createTime', index: 'create_time', width: 80 }, 			

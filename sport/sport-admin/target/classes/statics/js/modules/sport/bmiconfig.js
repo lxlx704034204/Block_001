@@ -8,9 +8,17 @@ $(function () {
 			{ label: '低重范围', name: 'lowWeightRange', index: 'low_weight_range', width: 80 }, 			
 			{ label: '超重范围', name: 'overWeightRange', index: 'over_weight_range', width: 80 }, 			
 			{ label: '肥胖范围', name: 'fatWeightRange', index: 'fat_weight_range', width: 80 }, 			
-			{ label: '年龄段', name: 'minAge', index: 'min_age', width: 80 }, 			
-			{ label: '年龄段', name: 'maxAge', index: 'max_age', width: 80 }, 			
-			{ label: '性别1：男 2：女', name: 'gender', index: 'gender', width: 80 }, 			
+			{ label: '年龄段', name: 'minAge', index: 'min_age', width: 80 ,
+                formatter: function (cellvalue, options, rowObject) {
+                    return rowObject.minAge +"-" +rowObject.maxAge;
+                }
+            },
+			// { label: '年龄段', name: 'maxAge', index: 'max_age', width: 80 },
+			{ label: '性别', name: 'gender', index: 'gender', width: 80,
+                formatter: function (cellvalue, options, rowObject) {
+                    if(cellvalue == 1) return '男'; else return '女';
+                }
+            },
 			{ label: '备注', name: 'remark', index: 'remark', width: 80 }, 			
 			{ label: '创建时间', name: 'createTime', index: 'create_time', width: 80 }, 			
 			{ label: '修改时间', name: 'updateTime', index: 'update_time', width: 80 }			
