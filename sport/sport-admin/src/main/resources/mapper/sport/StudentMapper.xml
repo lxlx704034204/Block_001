@@ -33,5 +33,7 @@
         where s.id = #{studentId}
     </select>
 
-
+    <select id="getStudentNumber" resultType="string">
+        select concat('100000',ifnull(max(id),1)) from sport_student
+    </select>
 </mapper>

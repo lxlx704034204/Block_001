@@ -3,10 +3,12 @@ package io.renren.modules.sport.controller;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.sport.entity.ProjectConfig;
 import io.renren.modules.sport.service.ProjectConfigService;
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +67,8 @@ public class StudentController {
     @RequiresPermissions("sport:student:save")
     public Result save(@RequestBody Student student){
         student.setCreateTime(LocalDateTime.now());
+        String stuNumber = studentService.getStudentNumber();
+        student.setStuNumber(stuNumber);
         studentService.save(student);
 
         return Result.ok();

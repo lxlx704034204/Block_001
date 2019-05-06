@@ -74,8 +74,8 @@ public class Student implements Serializable {
 	@JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime updateTime;
 
-	private Integer province;
-	private Integer city;
+	private String province;
+	private String city;
 	private String address;
 	private Integer schoolId;
 

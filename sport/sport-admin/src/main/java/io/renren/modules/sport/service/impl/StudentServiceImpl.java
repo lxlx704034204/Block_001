@@ -32,4 +32,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         return this.baseMapper.getStudentWithSchoolNameById(studentId);
     }
 
+    @Override
+    public String getStudentNumber() {
+        return baseMapper.getStudentNumber();
+    }
+
 }

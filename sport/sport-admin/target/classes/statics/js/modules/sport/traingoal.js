@@ -4,13 +4,13 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '训练目标', name: 'trainGoal', index: 'train_goal', width: 180 },
 			{ label: '年龄段', name: 'ageRange', index: 'age_range', width: 80,
                 formatter: function (cellvalue, options, rowObject) {
                     return rowObject.minAge +"-" +rowObject.maxAge;
                 }
             },
-			// { label: '性别', name: 'gender', index: 'gender', width: 80 ,
+            { label: '训练目标', name: 'trainGoal', index: 'train_goal', width: 280 },
+            // { label: '性别', name: 'gender', index: 'gender', width: 80 ,
             //     formatter: function (cellvalue, options, rowObject) {
             //         if(cellvalue == 1) return '男'; else return '女';
             //     }

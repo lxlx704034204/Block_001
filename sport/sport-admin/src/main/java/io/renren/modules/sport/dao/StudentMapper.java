@@ -16,4 +16,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface StudentMapper extends BaseMapper<Student> {
 
     StudentDTO getStudentWithSchoolNameById(Integer studentId);
+
+    String getStudentNumber();
 }

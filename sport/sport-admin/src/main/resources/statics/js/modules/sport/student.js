@@ -77,6 +77,10 @@ var vm = new Vue({
 	},
     mounted: function(){
 	    this.getSchoolList();
+	    this.layDateRegisterTime();
+	    this.layDateBirthday();
+	    this.layDateFun();
+	    this.getProvince();
     },
 	methods: {
 		query: function () {
@@ -294,7 +298,6 @@ var vm = new Vue({
                     elem: '#registerTime', //指定元素
                     type: 'datetime',
                     done: function(value, date, endDate){
-                        alert(value)
                         vm.student.registerTime = value;
                     }
                 });
@@ -306,10 +309,34 @@ var vm = new Vue({
                     elem: '#birthday', //指定元素
                     type: 'datetime',
                     done: function(value, date, endDate){
-                        alert(value)
                         vm.student.birthday = value;
                     }
                 });
+            });
+        },
+
+        getProvince: function(){
+            $.get(baseURL + "sport/area/listByParentId?parentId=0", function(data){
+                var jsonobj = data.areaList;
+                if (jsonobj != null) {
+                    var length=jsonobj.length;
+                    $.each(jsonobj, function(i){
+                        $("<option value='" + jsonobj[i].areaName + "' dataId='"+jsonobj[i].id+"'>" + jsonobj[i].areaName+ "</option>").appendTo($("#province"));
+                    });
+                }
+            });
+        },
+        fillCityByParentId: function(){
+            $("#city").empty();
+            var parentId = $('#province option:selected').attr("dataId");
+            $.get(baseURL + "sport/area/listByParentId?parentId="+parentId, function(data){
+                var jsonobj = data.areaList;
+                if (jsonobj != null) {
+                    var length=jsonobj.length;
+                    $.each(jsonobj, function(i){
+                        $("<option value='" + jsonobj[i].areaName + "'>" + jsonobj[i].areaName+ "</option>").appendTo($("#city"));
+                    });
+                }
             });
         }
 	}

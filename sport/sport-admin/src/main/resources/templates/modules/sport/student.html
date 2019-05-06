@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-sm-3 control-label">出生日期</div>
                         <div class="col-sm-3">
-                            <input type="text" id="birthday" class="form-control" v-model="student.birthday" v-on:focus='layDateBirthday' placeholder="出生日期"/>
+                            <input type="text" id="birthday" class="form-control" v-model="student.birthday" placeholder="出生日期"/>
                         </div>
                     </div>
 					<div class="form-group">
@@ -66,10 +66,38 @@
                         </div>
                         <div class="col-sm-3 control-label">报名时间</div>
                         <div class="col-sm-3">
-                            <input type="text" id="registerTime" class="form-control" v-model="student.registerTime" v-on:focus='layDateRegisterTime' placeholder="报名时间"/>
+                            <input type="text" id="registerTime" class="form-control" v-model="student.registerTime"  placeholder="报名时间"/>
                         </div>
 
                     </div>
+                <div class="form-group">
+                    <div class="col-sm-3 control-label">省（直辖市）</div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="province" v-model="student.province" @change="fillCityByParentId()">
+                            <option value="">-----请选择-----</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 control-label">市</div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="city" v-model="student.city">
+                            <option value="">-----请选择-----</option>
+                        </select>
+                    </div>
+
+                </div>
+            <div class="form-group">
+                <div class="col-sm-3 control-label">详细地址</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" v-model="student.address" placeholder="详细地址"/>
+                </div>
+                <div class="col-sm-3 control-label">校区</div>
+                <div class="col-sm-3" style="">
+                    <select class="form-control" style="width: 100%" v-model="student.schoolId" name="student.schoolId" id="schoolId" placeholder="校区">
+                        <option value="">-----请选择----</option>
+                    </select>
+                </div>
+
+            </div>
 				<div class="form-group">
                 <div class="col-sm-2 control-label"></div>
                 <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
@@ -81,23 +109,10 @@
     <div v-show="!showGrade" id="addGradeId" class="panel panel-default" >
         <form id="formId" class="form-horizontal" style="width: 720px" >
             <div class="form-group">
-                <div class="col-sm-3 control-label">检测时间</div>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" v-on:focus='layDateFun'  name="checkTime" id="checkTime" placeholder="检测时间"/>
-                </div>
                 <div class="col-sm-3 control-label">身高</div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="height" id="height" placeholder="身高"/>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-3 control-label">校区</div>
-                <div class="col-sm-3" style="">
-                    <select class="form-control" style="width: 100%" name="schoolId" id="schoolId" placeholder="校区">
-                        <option value="">-----请选择----</option>
-                    </select>
-                </div>
-
                 <div class="col-sm-3 control-label">体重</div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="weight" id="weight" placeholder="体重"/>
@@ -120,7 +135,10 @@
                 <div class="col-sm-3">
                     <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="测试员"/>
                 </div>
-
+                <div class="col-sm-3 control-label">检测时间</div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" v-on:focus='layDateFun'  name="checkTime" id="checkTime" placeholder="检测时间"/>
+                </div>
             </div>
 
 

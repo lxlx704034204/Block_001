@@ -58,11 +58,13 @@ public class GradeServiceImpl implements GradeService {
                 .checkTime(checkTime)
                 .height(grade.getHeight())
                 .weight(grade.getWeight())
+                .bmiGrade(grade.getWeight().divide((grade.getHeight().multiply(grade.getHeight()))).setScale(2,BigDecimal.ROUND_HALF_UP))
                 .studentId(grade.getStudentId())
                 .teacherName(grade.getTeacherName())
                 .createTime(LocalDateTime.now())
                 .age(age)
                 .build();
+        bmiGrade.setScore(bmiGrade.getBmiGrade());
 
         List<ProjectGrade> gradeList = Lists.newArrayList();
 
@@ -91,7 +93,6 @@ public class GradeServiceImpl implements GradeService {
                         .build();
                 gradeList.add(pg);
                 bmiGrade.setAgeRange(pg.getAgeRange());
-                bmiGrade.setSuggestion(suggestion.getSuggestion());
             });
             Map<Integer,ProjectGrade> gradeMapGroupById = gradeList.stream().collect(Collectors.toMap(ProjectGrade::getProjectId, Function.identity()));
             List<Project> projectList = projectService.list();
@@ -101,7 +102,8 @@ public class GradeServiceImpl implements GradeService {
                 if(Objects.isNull(pg)){
                     return;
                 }
-                gradeMap.put(p.getProjectCode(),pg.getProjectGrade());
+
+                gradeMap.put(underlineToCamel(p.getProjectCode()),pg.getProjectGrade());
             });
             StudentGrade studentGrade = StudentGrade.builder()
                     .studentId(grade.getStudentId())
@@ -109,6 +111,8 @@ public class GradeServiceImpl implements GradeService {
                     .checkTime(checkTime)
                     .height(grade.getHeight())
                     .weight(grade.getWeight())
+                    .trainHours(grade.getTrainHours())
+                    .attendance(grade.getAttendance())
                     .age(age)
                     .ageRange(bmiGrade.getAgeRange())
                     .teacherName(grade.getTeacherName())
@@ -121,12 +125,50 @@ public class GradeServiceImpl implements GradeService {
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
-            bmiGradeService.save(bmiGrade);
+            Double avg = gradeList.stream().mapToDouble(projectGrade -> projectGrade.getScore().doubleValue()).average().getAsDouble();
+            studentGrade.setScore(new BigDecimal(avg));
+
+            ProjectConfig pcconf = projectConfigList.stream().filter(pc ->{
+                return (age>=pc.getMinAge() && age<=pc.getMaxAge() && studentGrade.getScore().compareTo(pc.getMinScore())>=0
+                        && studentGrade.getScore().compareTo(pc.getMaxScore())<=0);
+            }).findFirst().get();
+            ScoreSuggestion suggestion = suggestionList.stream().filter(s -> {
+                return s.getMaxScore().compareTo(pcconf.getScoreLevel())>=0 && s.getMinScore().compareTo(pcconf.getScoreLevel())<=0;
+            }).findFirst().get();
+            studentGrade.setSuggestion(suggestion.getSuggestion());
             studentGradeService.save(studentGrade);
+            bmiGrade.setStuGradeId(studentGrade.getId());
+            bmiGradeService.save(bmiGrade);
+            gradeList.forEach(e ->e.setStuGradeId(studentGrade.getId()));
             projectGradeService.saveBatch(gradeList);
         }
         return Result.ok();
     }
+    /**
+     * 下划线 转 驼峰
+     * @param param
+     * @return
+     */
+    private String underlineToCamel(String param) {
+
+        if (param==null||"".equals(param.trim())){
+            return "";
+        }
+        int len=param.length();
+        StringBuilder sb=new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            char c = Character.toLowerCase(param.charAt(i));
+            if (c == '_'){
+                if (++i<len){
+                    sb.append(Character.toUpperCase(param.charAt(i)));
+                }
+            }else{
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
     private static double applyGradeAsDouble(ProjectGradeDTO projectGrade) {
         BigDecimal score = /*ProjectGrade::getScore;*/projectGrade.getScore();
         return score.doubleValue();

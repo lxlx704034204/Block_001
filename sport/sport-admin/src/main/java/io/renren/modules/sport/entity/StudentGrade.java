@@ -94,7 +94,7 @@ public class StudentGrade implements Serializable {
 	/**
 	 * 综合评分
 	 */
-	private String score;
+	private BigDecimal score;
 	/**
 	 * 评测建议
 	 */

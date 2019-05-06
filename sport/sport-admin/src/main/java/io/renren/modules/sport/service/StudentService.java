@@ -19,5 +19,7 @@ public interface StudentService extends IService<Student> {
     PageResult queryPage(Map<String, Object> params);
 
     StudentDTO getStudentWithSchoolNameById(Integer studentId);
+
+    String getStudentNumber();
 }
 
