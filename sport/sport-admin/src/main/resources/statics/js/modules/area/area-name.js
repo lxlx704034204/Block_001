@@ -11,14 +11,20 @@ var cityJson;
 /**
  *获取area.json内容,初始化cityJson
  */
-$(function() {
+/**
+ *获取area.json内容,初始化cityJson
+ */
+function loadCityData(){
+    if(cityJson) return;
     $.getJSON(
-        "${request.contextPath}/statics/js/modules/area/area.json",
+        "/admin/statics/js/modules/area/area.json",
         function (obj) {
+            debugger;
             cityJson=obj;
         }
     );
-})
+}
+loadCityData();
 /**
  * 加载省份时,如果cityJson!=null ,不在重复获取
  * @param province

@@ -53,6 +53,8 @@ function radarChartFun (radarCharData) {
 		]
 	}
 	radarChart.setOption(radarOption);
+
+	echartToImg(radarChart)
 }
 
 function barChartFun(dataX,fullDataY,checkDataY) {
@@ -111,6 +113,8 @@ function barChartFun(dataX,fullDataY,checkDataY) {
 
 	// 使用刚指定的配置项和数据显示图表。
 	barChart.setOption(barOption);
+
+	echartToImg(barChart)
 }
 
 function bmiChartFun(bmiDataY) {
@@ -143,4 +147,18 @@ function bmiChartFun(bmiDataY) {
 
 		// 使用刚指定的配置项和数据显示图表。
 		bmiChart.setOption(bmiOption);
+
+		echartToImg(bmiChart)
+}
+
+function echartToImg(echart){
+	var img = new Image();
+	var imgSrc = echart.getDataURL();
+	// 渲染到图表上面，遮住图表
+	img.src = imgSrc;
+	// 图片加载完成之后
+	img.onload = function() {
+		// 执行打印
+		console.log("pic is cover");
+	}
 }
