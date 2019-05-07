@@ -28,9 +28,13 @@ public class ScoreSuggestion implements Serializable {
 	@TableId
 	private Integer id;
 	/**
-	 * 项目ID
+	 * 项目类型
 	 */
-	private Integer trainProjectId;
+	private String projectType;
+	/**
+	 * 项目code
+	 */
+	private String projectCode;
 	/**
 	 * 评分范围
 	 */

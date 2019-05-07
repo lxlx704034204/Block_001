@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '项目ID', name: 'trainProjectId', index: 'train_project_id', width: 80 }, 			
+			{ label: '项目类型', name: 'projectType', index: 'train_project_id', width: 80 },
 			{ label: '评分范围', name: 'minScore', index: 'min_score', width: 80,
                 formatter: function (cellvalue, options, rowObject) {
                     return rowObject.minScore+ "-" + rowObject.maxScore;

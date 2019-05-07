@@ -6,7 +6,8 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="io.renren.modules.sport.entity.ScoreSuggestion" id="scoreSuggestionMap">
         <result property="id" column="id"/>
-        <result property="trainProjectId" column="train_project_id"/>
+        <result property="projectType" column="project_type"/>
+        <result property="projectCode" column="project_code"/>
         <result property="minScore" column="min_score"/>
         <result property="maxScore" column="max_score"/>
         <result property="suggestion" column="suggestion"/>
