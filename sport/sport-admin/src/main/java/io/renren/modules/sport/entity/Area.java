@@ -34,10 +34,13 @@ public class Area implements Serializable {
 	 * 父级ID
 	 */
 	private Integer parentId;
+	private String parentCode;
 	/**
 	 * 区域
 	 */
 	private String areaName;
+
+	private String areaCode;
 	/**
 	 * 级别 1：省 2：市
 	 */

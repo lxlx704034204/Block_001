@@ -13,7 +13,7 @@ var cityJson;
  */
 $(function() {
     $.getJSON(
-        "/area/area.json",
+        "${request.contextPath}/statics/js/modules/area/area.json",
         function (obj) {
             cityJson=obj;
         }
@@ -47,7 +47,8 @@ function loadProvince(province, provinceVal) {
  */
 function doProvAndCityRelation(province,city,area,cityVal){
     $(city).empty().append("<option value='' selected='selected'>请选择您所在城市</option>");
-    $(area).empty().append("<option  value=''selected='selected'>请选择您所在区/县</option>");
+    if(area)
+        $(area).empty().append("<option  value=''selected='selected'>请选择您所在区/县</option>");
    /* $(city).append("<option value=''>请选择您所在城市</option>");
     $(area).append("<option  value=''>请选择您所在区/县</option>");*/
     $.each(cityJson, function(i, val) {

@@ -316,7 +316,7 @@ var vm = new Vue({
         },
 
         getProvince: function(){
-            $.get(baseURL + "sport/area/listByParentId?parentId=0", function(data){
+            /*$.get(baseURL + "sport/area/listByParentId?parentId=0", function(data){
                 var jsonobj = data.areaList;
                 if (jsonobj != null) {
                     var length=jsonobj.length;
@@ -324,11 +324,12 @@ var vm = new Vue({
                         $("<option value='" + jsonobj[i].areaName + "' dataId='"+jsonobj[i].id+"'>" + jsonobj[i].areaName+ "</option>").appendTo($("#province"));
                     });
                 }
-            });
+            });*/
+            loadProvince($("#province"),'');
         },
         fillCityByParentId: function(){
             $("#city").empty();
-            var parentId = $('#province option:selected').attr("dataId");
+            /*var parentId = $('#province option:selected').attr("dataId");
             $.get(baseURL + "sport/area/listByParentId?parentId="+parentId, function(data){
                 var jsonobj = data.areaList;
                 if (jsonobj != null) {
@@ -337,7 +338,8 @@ var vm = new Vue({
                         $("<option value='" + jsonobj[i].areaName + "'>" + jsonobj[i].areaName+ "</option>").appendTo($("#city"));
                     });
                 }
-            });
+            });*/
+            doProvAndCityRelation($("#province"),$("#city"),null,'');
         }
 	}
 });
