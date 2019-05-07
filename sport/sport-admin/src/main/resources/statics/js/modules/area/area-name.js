@@ -29,9 +29,9 @@ function loadProvince(province, provinceVal) {
         var code = val.code;
         if (code.substr(2, 4) == '0000') {
             if (code == provinceVal) {
-                $(province).append("<option value='" + val.code + "' selected='selected'>" + val.name + "</option>");
+                $(province).append("<option value='" + val.name + "' selected='selected'>" + val.name + "</option>");
             } else {
-                $(province).append("<option value='" + val.code + "'>" + val.name + "</option>");
+                $(province).append("<option value='" + val.name + "'>" + val.name + "</option>");
             }
         }
     });
@@ -52,14 +52,14 @@ function doProvAndCityRelation(province,city,area,cityVal){
    /* $(city).append("<option value=''>请选择您所在城市</option>");
     $(area).append("<option  value=''>请选择您所在区/县</option>");*/
     $.each(cityJson, function(i, val) {
-        var code=val.code;
+        var code=val.name;
         if(code== $(province).val()){
             var cityList=val.cityList;
             $.each(cityList,function (i, val) {
-                if (val.code == cityVal) {
-                    $(city).append("<option value='"+val.code+"' selected='selected'>"+val.name+"</option>");
+                if (val.name == cityVal) {
+                    $(city).append("<option value='"+val.name+"' selected='selected'>"+val.name+"</option>");
                 } else {
-                    $(city).append("<option value='"+val.code+"'>"+val.name+"</option>");
+                    $(city).append("<option value='"+val.name+"'>"+val.name+"</option>");
                 }
             })
             return;
@@ -79,26 +79,26 @@ function doCityAndCountyRelation(province,city,area,areaVal){
     $(area).empty();
     $(area).append("<option  value='' selected='selected'>请选择您所在区/县</option>");
     $.each(cityJson, function(i, val) {
-        var code=val.code;
+        var code=val.name;
         if(code== $(province).val()){
             var cityList=val.cityList;
             $.each(cityList,function (indexCity, valCity) {
-                var cityCode=valCity.code;
+                var cityCode=valCity.name;
                 if(cityCode== $(city).val()){
                     var areaList=valCity.areaList;
                     if (areaList.length <= 0) {
                         if (valCity.code == areaVal) {
-                            $(area).append("<option value='"+valCity.code+"' selected='selected'>"+valCity.name+"</option>");
+                            $(area).append("<option value='"+valCity.name+"' selected='selected'>"+valCity.name+"</option>");
                         } else {
-                            $(area).append("<option value='"+valCity.code+"'>"+valCity.name+"</option>");
+                            $(area).append("<option value='"+valCity.name+"'>"+valCity.name+"</option>");
                         }
                         return;
                     }
                     $.each(areaList,function (indexArea, valArea) {
-                        if (valArea.code == areaVal) {
-                            $(area).append("<option value='"+valArea.code+"' selected='selected'>"+valArea.name+"</option>");
+                        if (valArea.name == areaVal) {
+                            $(area).append("<option value='"+valArea.name+"' selected='selected'>"+valArea.name+"</option>");
                         } else {
-                            $(area).append("<option value='"+valArea.code+"'>"+valArea.name+"</option>");
+                            $(area).append("<option value='"+valArea.name+"'>"+valArea.name+"</option>");
                         }
                     });
                     return;
