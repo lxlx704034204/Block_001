@@ -16,9 +16,9 @@
 
     <modules>
         <module>sport-common</module>
-        <module>sport-admin</module>
         <module>sport-api</module>
-		<module>sport-datasource</module>
+        <module>sport-datasource</module>
+        <module>sport-admin</module>
         <module>sport-generator</module>
     </modules>
 
