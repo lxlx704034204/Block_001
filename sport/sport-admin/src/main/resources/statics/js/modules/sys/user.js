@@ -35,6 +35,9 @@ $(function () {
     https://thinkgem.iteye.com/blog/2145125
     https://my.oschina.net/thinkgem/blog/1561129  Jeesite开源案例★
 
+ jqGrid 高级查询多条件动态筛选插件
+    https://www.cnblogs.com/daxiongblog/p/9629039.html
+
   待完善可载入博客的
     https://www.jianshu.com/p/93cc3a564c94
     https://www.cnblogs.com/langjitianya2017/p/9774866.html
