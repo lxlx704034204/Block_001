@@ -1,5 +1,5 @@
 $(function () {
-    extracted();
+    jqgridInitPage();
 });
 /*
  jgGrid-jsonReader 需要的分页数据格式
@@ -27,14 +27,29 @@ $(function () {
         ]
     }
 }
+//jgGrid文档：
+    https://blog.mn886.net/jqGrid/
+    https://blog.csdn.net/keke_Xin/article/details/84439023
+
+  jqGrid 二次封装
+    https://thinkgem.iteye.com/blog/2145125
+
+  待完善可载入博客的
+    https://www.jianshu.com/p/93cc3a564c94
+    https://www.cnblogs.com/langjitianya2017/p/9774866.html
+    https://www.cnblogs.com/warm-stranger/p/4622153.html
 
 */
 
 
-function extracted() {
+function jqgridInitPage() {
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/user/list',
-        datatype: "json",
+        datatype: "json",               //这个参数指定了jqGrid调用的数据的格式，常用格式有json，xml，local。
+        // colNames:["用户ID","用户名","所属部门","邮箱","手机号","状态","创建时间"],  // 可以不要
+        // colNames这个参数指定了jqGrid每列的title，按顺序依次排列，并且可以看出实际上它就是一个字符串数组。
+        // colModel这个参数指定了jqGrid各列的具体格式，"name"指定对应数据中属性名，“index”用于列排序，“width”显然是指定列宽，“align”对齐方式，
+        // “sortable”指定是否支持排序。其实上面每一个设置基本见名知意，大家可以大胆使用。（注意：colName与colModel 需要一一对应）
         colModel: [
             {label: '用户ID',   name: 'userId',  index: "user_id", width: 45, key: true},
             {label: '用户名',   name: 'username',                  width: 75},
@@ -51,25 +66,31 @@ function extracted() {
             },
             {label: '创建时间',  name: 'createTime', index: "create_time", width: 85}
         ],
-        viewrecords: true,
+        viewrecords: true,          //设置了是否在Pager Bar显示所有记录的总数。
         height: 385,
-        rowNum: 10,
+        rowNum: 10,                 //这个参数指定了jqGrid显示行数，默认值20。
         rowList: [10, 30, 50],
         rownumbers: true,
         rownumWidth: 25,
         autowidth: true,
         multiselect: true,
-        pager: "#jqGridPager",
+        pager: "#jqGridPager",      //这个参数指定了jqGrid页脚显示位置。
+        // sortname:1,  //指定了jqGrid默认的排序列，可以是列名也可以是数字。
+        // sortorder:1, //指定了jqGrid默认排序列的默认排序方式。
+        // caption:'我是标题A',   //这个参数制订了jqGrid的标题，如果设置了，则将显示在Grid的Header层。
+
+        // jqgrid中jsonReader使用userdata传递自定义数据内容  https://blog.csdn.net/hgyu/article/details/80614075
         jsonReader: {
-            root: "page.list",
-            page: "page.currPage",
-            total: "page.totalPage",
-            records: "page.totalCount"
+            root:    "page.list",
+            page:    "page.currPage",   //当前页
+            total:   "page.totalPage",  //总页数
+            records: "page.totalCount"  //总条数
+            // repeatitems: true, // 如果设为false，则jqGrid在解析json时，会根据name来搜索对应的数据元素（即可以json中元素可以不按顺序）；而所使用的name是来自于colModel中的name设定。
         },
-        prmNames: {
-            page: "page",
-            rows: "limit",
-            order: "order"
+        prmNames: {  //prmNames选项详解： https://my.oschina.net/u/1454202/blog/481403
+            page: "page",   // 表示请求页码的参数名称
+            rows: "limit",  // 表示请求行数的参数名称
+            order: "order"  // 表示采用的排序方式的参数名称 ...
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
@@ -234,11 +255,17 @@ var vm = new Vue({
                 }
             });
         },
+
+        /* vue-reload方法： https://blog.csdn.net/zjl199303/article/details/82655635
+        1.场景：在处理列表时，常常有删除一条数据或者新增数据之后需要重新刷新当前页面的需求。
+        2.遇到的问题：
+                1. 用vue-router重新路由到当前页面，页面是不进行刷新的
+                2.采用window.reload()，或者router.go(0)刷新时，整个浏览器进行了重新加载，闪烁，体验不好
+        */
         reload: function () {
             vm.showList = true;
-            var page = $("#jqGrid").jqGrid('getGridParam', 'page');
-
-
+            // 条件查询  点击查询按钮的时候：
+            var page = $("#jqGrid").jqGrid('getGridParam', 'page'); //'getGridParam'命令 获取当前的页数
 
             $("#jqGrid")
                 .jqGrid(
@@ -255,7 +282,7 @@ var vm = new Vue({
 /*
 
 ----http://www.cnblogs.com/lipan/archive/2010/11/25/1887160.html--start---
- jqgrid getGridParam、setGridParam ：
+ ☆ jqgrid 的 getGridParam、setGridParam 用法：
     getGridParam方法：
     　　getGridParam("url")： 获取当前的AJAX的URL
     　　getGridParam("sortname")：排序的字段
@@ -277,6 +304,10 @@ var vm = new Vue({
     形式2：
         jQuery('#tableID').jqGrid('getGridParam','url'))
     　　 jQuery("#tableID").jqGrid('setGridParam',{page:2}).trigger("reloadGrid")
+
+        jQuery("grid_id").getGridParam('userData')
+        jQuery("grid_id").jqGrid('getGridParam', 'userData')
+
 
 ----http://www.cnblogs.com/lipan/archive/2010/11/25/1887160.html--end---
 
