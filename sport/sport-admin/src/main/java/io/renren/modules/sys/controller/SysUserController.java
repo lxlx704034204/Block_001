@@ -43,7 +43,7 @@ public class SysUserController extends AbstractController {
 	private SysUserRoleService sysUserRoleService;
 	
 	/**
-	 * 所有用户列表
+	 * 所有用户列表 http://localhost:1080/admin/sys/user/list
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:user:list")
