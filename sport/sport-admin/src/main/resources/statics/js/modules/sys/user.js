@@ -33,6 +33,7 @@ $(function () {
 
   jqGrid 二次封装
     https://thinkgem.iteye.com/blog/2145125
+    https://my.oschina.net/thinkgem/blog/1561129  Jeesite开源案例★
 
   待完善可载入博客的
     https://www.jianshu.com/p/93cc3a564c94
